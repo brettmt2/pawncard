@@ -37,7 +37,7 @@ def get_summary(username: str):
     cached = r.get(f'summary/{username}')
     if cached:
         return json.loads(cached)
-    
+
     data = get_player_summary(username=username)
     r.setex(f'summary/{username}', 30, json.dumps(data))
     
