@@ -1,8 +1,9 @@
 import requests
+import httpx
 
-def get_player_summary_stats(username: str):
+async def get_player_summary_stats(client: httpx.AsyncClient, username: str):
     headers = {'User-Agent': 'Mozilla/5.0'}
-    response = requests.get(f'https://api.chess.com/pub/player/{username}/stats', headers=headers)
+    response = await client.get(f'https://api.chess.com/pub/player/{username}/stats', headers=headers)
 
     data = response.json()
 
@@ -25,9 +26,9 @@ def get_player_summary_stats(username: str):
 
     return stats
 
-def get_player_summary(username: str):
+async def get_player_summary(client: httpx.AsyncClient, username: str):
     headers = {'User-Agent': 'Mozilla/5.0'}
-    response = requests.get(f'https://api.chess.com/pub/player/{username}', headers=headers)
+    response = await client.get(f'https://api.chess.com/pub/player/{username}', headers=headers)
     
     data = response.json()
     
@@ -42,7 +43,7 @@ def get_player_summary(username: str):
         flag_id = data['country'].split('/')[-1].lower()
         summary ['flag'] = f'https://flagcdn.com/64x48/{flag_id}.png'
 
-        summary['stats'] = get_player_summary_stats(username=username)
+        summary['stats'] = await get_player_summary_stats(client=client, username=username)
 
         return summary
     else:
