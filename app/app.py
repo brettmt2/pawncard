@@ -48,22 +48,20 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/summaries/{username}")
-async def get_summary(username: str):
+@app.get("/data/{username}")
+async def get_player_data(username: str):
+    data = {}
 
     cached = r.get(f'summary/{username}')
     if cached:
-        return json.loads(cached)
+        data['summary'] = json.loads(cached)
+        data['feed'] = await get_player_feed(s3=s3, client=client, username=username, append=False)
+        return data
 
-    data = await get_player_summary(client=client, username=username)
-    r.setex(f'summary/{username}', 30, json.dumps(data))
+    data['summary'] = await get_player_summary(client=client, username=username)
+    data['feed'] = await get_player_feed(s3=s3, client=client, username=username, append=True)
     
-    return data
-
-@app.get("/feeds/{username}")
-async def get_feed(username: str):
-
-    data = await get_player_feed(s3=s3, client=client, username=username)
+    r.setex(f'summary/{username}', 30, json.dumps(data['summary']))
     
     return data
 

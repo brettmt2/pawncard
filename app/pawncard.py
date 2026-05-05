@@ -58,7 +58,7 @@ async def append_feed(feed: list, client: httpx.AsyncClient, username: str):
         
     return [{'feed-content': 1}]
 
-async def get_player_feed(s3, client: httpx.AsyncClient, username: str):
+async def get_player_feed(s3, client: httpx.AsyncClient, username: str, append: bool = True):
     paginator = s3.get_paginator('list_objects_v2')
     feed = None
 
@@ -72,12 +72,15 @@ async def get_player_feed(s3, client: httpx.AsyncClient, username: str):
 
             break
     
-    updated_feed = await append_feed(feed=feed, client=client, username=username)
+    if append:
+        updated_feed = await append_feed(feed=feed, client=client, username=username)
 
-    s3.put_object(
-        Bucket=os.getenv('FEEDS_BUCKET_NAME'),
-        Key=f'feeds/{username}',
-        Body=json.dumps(updated_feed)
-    )
+        s3.put_object(
+            Bucket=os.getenv('FEEDS_BUCKET_NAME'),
+            Key=f'feeds/{username}',
+            Body=json.dumps(updated_feed)
+        )
 
-    return updated_feed
+        return updated_feed
+
+    return feed
