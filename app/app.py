@@ -1,13 +1,15 @@
 import json
 from contextlib import asynccontextmanager
+import os
 
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import redis
 import httpx
+import boto3
 
-from app.pawncard import get_player_summary
+from app.pawncard import get_player_summary, get_player_feed
 
 load_dotenv(override=False)
 
@@ -23,6 +25,14 @@ async def lifespan(_: FastAPI):
     # load Redis manager
     global r
     r = redis.Redis(host='localhost', port=6379, db=0)
+
+    global s3
+    s3 = boto3.client(
+        's3',
+        aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
+        aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),
+        region_name=os.getenv('AWS_REGION')
+    )
 
     yield
 
@@ -47,6 +57,13 @@ async def get_summary(username: str):
 
     data = await get_player_summary(client=client, username=username)
     r.setex(f'summary/{username}', 30, json.dumps(data))
+    
+    return data
+
+@app.get("/feeds/{username}")
+async def get_feed(username: str):
+
+    data = await get_player_feed(s3=s3, client=client, username=username)
     
     return data
 

@@ -1,5 +1,6 @@
-import requests
+import os
 import httpx
+import json
 
 async def get_player_summary_stats(client: httpx.AsyncClient, username: str):
     headers = {'User-Agent': 'Mozilla/5.0'}
@@ -48,3 +49,35 @@ async def get_player_summary(client: httpx.AsyncClient, username: str):
         return summary
     else:
         return None
+    
+
+async def append_feed(feed: list, client: httpx.AsyncClient, username: str):
+    if feed:
+        feed.append({'feed-content': 1})
+        return feed
+        
+    return [{'feed-content': 1}]
+
+async def get_player_feed(s3, client: httpx.AsyncClient, username: str):
+    paginator = s3.get_paginator('list_objects_v2')
+    feed = None
+
+    for page in paginator.paginate(Bucket=os.getenv('FEEDS_BUCKET_NAME'), Prefix='feeds/'):
+        keys = [obj['Key'] for obj in page.get('Contents', [])]
+
+        if f'feeds/{username}' in keys:
+            print('feed already exists! getting it from s3 ~')
+            obj = s3.get_object(Bucket=os.getenv('FEEDS_BUCKET_NAME'), Key=f'feeds/{username}')
+            feed = json.loads(obj['Body'].read().decode('utf-8'))
+
+            break
+    
+    updated_feed = await append_feed(feed=feed, client=client, username=username)
+
+    s3.put_object(
+        Bucket=os.getenv('FEEDS_BUCKET_NAME'),
+        Key=f'feeds/{username}',
+        Body=json.dumps(updated_feed)
+    )
+
+    return updated_feed
