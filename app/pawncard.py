@@ -81,11 +81,13 @@ async def append_feed(feed: list, client: httpx.AsyncClient, username: str):
             feed_item['time_class'] = game['time_class']
 
             if white['result'] == 'win':
+                feed_item['new_rating'] = white['rating']
                 feed_item['win_color'] = 'white'
                 feed_item['opponent'] = {'username': black['username'], 'rating': black['rating']}
                 feed_item['win_condition'] = black['result']
 
             if black['result'] == 'win':
+                feed_item['new_rating'] = black['rating']
                 feed_item['win_color'] = 'black'
                 feed_item['opponent'] = {'username': white['username'], 'rating': white['rating']}
                 feed_item['win_condition'] = white['result']
