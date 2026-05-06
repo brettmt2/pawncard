@@ -63,7 +63,7 @@ async def append_feed(feed: list, client: httpx.AsyncClient, username: str):
 
     data = result.json()
     games: list = data.get('games', [])
-    games.reverse()
+    games.reverse() # LIFO
 
     if not games:
         return feed
@@ -76,15 +76,19 @@ async def append_feed(feed: list, client: httpx.AsyncClient, username: str):
         if (white['result'] == 'win' and white['username'] == username) \
             or (black['result'] == 'win' and black['username'] == username):
 
-            # feed_item['pgn'] = game['pgn']
+            feed_item['pgn'] = game['pgn']
+
+            feed_item['time_class'] = game['time_class']
 
             if white['result'] == 'win':
                 feed_item['win_color'] = 'white'
-                feed_item['opponent'] = black['username']
-            
+                feed_item['opponent'] = {'username': black['username'], 'rating': black['rating']}
+                feed_item['win_condition'] = black['result']
+
             if black['result'] == 'win':
                 feed_item['win_color'] = 'black'
-                feed_item['opponent'] = white['username']
+                feed_item['opponent'] = {'username': white['username'], 'rating': white['rating']}
+                feed_item['win_condition'] = white['result']
 
             feed_item['accuracies'] = game['accuracies']
             
