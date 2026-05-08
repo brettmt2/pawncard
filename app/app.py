@@ -9,7 +9,7 @@ import redis
 import httpx
 import boto3
 
-from app.pawncard import get_player_summary, get_player_feed
+from app.pawncard import get_user_summary, get_user_feed
 
 load_dotenv(override=False)
 
@@ -49,17 +49,17 @@ app.add_middleware(
 )
 
 @app.get("/data/{username}")
-async def get_player_data(username: str):
+async def get_user_data(username: str):
     data = {}
 
     cached = r.get(f'summary/{username}')
     if cached:
         data['summary'] = json.loads(cached)
-        data['feed'] = await get_player_feed(s3=s3, client=client, username=username, append=False)
+        data['feed'] = await get_user_feed(s3=s3, client=client, username=username, append=False)
         return data
 
-    data['summary'] = await get_player_summary(client=client, username=username)
-    data['feed'] = await get_player_feed(s3=s3, client=client, username=username, append=True)
+    data['summary'] = await get_user_summary(client=client, username=username)
+    data['feed'] = await get_user_feed(s3=s3, client=client, username=username, append=True)
     
     r.setex(f'summary/{username}', 30, json.dumps(data['summary']))
     

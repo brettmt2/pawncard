@@ -4,7 +4,7 @@ import json
 from datetime import datetime
 import asyncio
 
-async def get_player_summary_stats(client: httpx.AsyncClient, username: str):
+async def get_user_summary_stats(client: httpx.AsyncClient, username: str):
     headers = {'User-Agent': 'Mozilla/5.0'}
     response = await client.get(f'https://api.chess.com/pub/player/{username}/stats', headers=headers)
 
@@ -29,7 +29,7 @@ async def get_player_summary_stats(client: httpx.AsyncClient, username: str):
 
     return stats
 
-async def get_player_summary(client: httpx.AsyncClient, username: str):
+async def get_user_summary(client: httpx.AsyncClient, username: str):
     headers = {'User-Agent': 'Mozilla/5.0'}
     response = await client.get(f'https://api.chess.com/pub/player/{username}', headers=headers)
     
@@ -46,7 +46,7 @@ async def get_player_summary(client: httpx.AsyncClient, username: str):
         flag_id = data['country'].split('/')[-1].lower()
         summary ['flag'] = f'https://flagcdn.com/64x48/{flag_id}.png'
 
-        summary['stats'] = await get_player_summary_stats(client=client, username=username)
+        summary['stats'] = await get_user_summary_stats(client=client, username=username)
 
         return summary
     else:
@@ -54,7 +54,9 @@ async def get_player_summary(client: httpx.AsyncClient, username: str):
     
 
 async def append_feed(feed: list, client: httpx.AsyncClient, username: str):
-    feed_item = {}
+    if feed is None:
+        feed = []
+    
     now = datetime.now()
     url = f'https://api.chess.com/pub/player/{username}/games/{now.year}/{now.month:02d}'
 
@@ -63,13 +65,22 @@ async def append_feed(feed: list, client: httpx.AsyncClient, username: str):
 
     data = result.json()
     games: list = data.get('games', [])
-    games.reverse() # LIFO
+    games = games[-3:]
 
     if not games:
         return feed
     
+    # don't add existing feed ID
+    feed_ids = [d.get('feed_id', -1) for d in feed]
+
     # get the most recent win and append to feed
     for game in games:
+        feed_item = {}
+        game_id = game['url'].split('/')[-1]
+
+        if game_id in feed_ids:
+            continue
+
         white = game['white']
         black = game['black']
 
@@ -92,19 +103,16 @@ async def append_feed(feed: list, client: httpx.AsyncClient, username: str):
                 feed_item['opponent'] = {'username': white['username'], 'rating': white['rating']}
                 feed_item['win_condition'] = white['result']
 
-            feed_item['accuracies'] = game['accuracies']
-            
-            break
+            feed_item['accuracies'] = game.get('accuracies', None)
 
-    if feed_item and feed is not None:
-        feed.append(feed_item)
-        
-    if feed_item and feed is None:
-        feed = [feed_item]
+            feed_item['feed_id'] = game_id
+
+        if feed_item:
+            feed.append(feed_item)
 
     return feed
 
-async def get_player_feed(s3, client: httpx.AsyncClient, username: str, append: bool = True):
+async def get_user_feed(s3, client: httpx.AsyncClient, username: str, append: bool = True):
     paginator = s3.get_paginator('list_objects_v2')
     feed = None
 
