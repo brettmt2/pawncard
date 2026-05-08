@@ -31,6 +31,27 @@ async function search() {
         document.getElementById('record-blitz').textContent = stats['blitz']['record'] ?? '—';
         document.getElementById('record-rapid').textContent = stats['rapid']['record'] ?? '—';
 
+        document.getElementById('download-btn').addEventListener('click', async () => {
+            const btn = document.getElementById('download-btn');
+            const banner = document.querySelector('.pawncard-banner');
+            
+            btn.style.visibility = 'hidden';
+            banner.style.display = 'flex';
+
+            const canvas = await html2canvas(pawncard, { 
+                useCORS: true, 
+                backgroundColor: '#3a3837' 
+            });
+
+            btn.style.visibility = 'visible';
+            banner.style.display = 'none';
+
+            const link = document.createElement('a');
+            link.download = 'pawncard.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        });
+
         pawncard.hidden = false;
     } catch (err) {
         console.error(err.message);

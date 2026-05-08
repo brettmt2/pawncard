@@ -8,7 +8,11 @@
 </head>
 <body>
 
-    <h1 class="site-title">Pawncard</h1>
+    <div class="title-section">
+        <img src="static/logo.png" class="site-logo" alt="Pawncard logo" />
+        <h1 class="site-title">Pawncard</h1>
+    </div>
+
     <p class="site-subtitle">Get your Pawncard - a highlighted profile of your Chess games!</p>
 
     <div class="search-container">
@@ -17,19 +21,29 @@
     </div>
 
     <div id="pawncard" class="pawncard" hidden>
-        <div class="profile-section">
-            <img id="pfp" src="https://www.chess.com/bundles/web/images/user-image.007dad08.svg" alt="Profile picture" />
-            <h2 id="username-display"></h2>
-        </div>
+        <button id="download-btn" title="Download as PNG">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+        </button>
 
-        <div class="stats-section">
-            <div class="stat-item">
-                <span class="stat-label">Followers</span>
-                <span class="stat-value" id="stat-followers"></span>
+        <div class="pawncard-top">
+            <div class="profile-section">
+                <img id="pfp" src="https://www.chess.com/bundles/web/images/user-image.007dad08.svg" alt="Profile picture" />
+                <h2 id="username-display"></h2>
             </div>
-            <div class="stat-item">
-                <span class="stat-label">Country</span>
-                <img id="stat-country" src="" alt="" />
+
+            <div class="stats-section">
+                <div class="stat-item">
+                    <span class="stat-label">Followers</span>
+                    <span class="stat-value" id="stat-followers"></span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Country</span>
+                    <img id="stat-country" src="" alt="" />
+                </div>
             </div>
         </div>
 
@@ -59,8 +73,14 @@
                 </div>
             </div>
         </div>
+
+        <div class="pawncard-banner">
+            <img src="static/logo.png" class="banner-logo" />
+            <span>Pawncard - Generate yours at <strong>________.app</strong></span>
+        </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script type="module" src="app.js"></script>
 
 </body>
