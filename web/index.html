@@ -4,19 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pawncard</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+    <h1 class="site-title">Pawncard</h1>
+    <p class="site-subtitle">Get your Pawncard - a highlighted profile of your Chess games!</p>
 
     <div class="search-container">
         <input type="text" id="username-input" placeholder="Search username..." />
         <button id="search-btn">Search</button>
     </div>
 
-    <h1 id="username-display"></h1>
-    <img id="pfp" src="" alt="" hidden /></img>
+    <div id="pawncard" class="pawncard" hidden>
+        <div class="profile-section">
+            <img id="pfp" src="https://www.chess.com/bundles/web/images/user-image.007dad08.svg" alt="Profile picture" />
+            <h2 id="username-display"></h2>
+        </div>
 
-    <div class="output-container">
-        <pre id="json-output">Get your Pawncard!</pre>
+        <div class="stats-section">
+            <div class="stat-item">
+                <span class="stat-label">Followers</span>
+                <span class="stat-value" id="stat-followers"></span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Country</span>
+                <img id="stat-country" src="" alt="" />
+            </div>
+        </div>
+
+        <div class="ratings-section">
+            <div class="rating-item">
+                <img src="https://www.chess.com/bundles/web/images/color-icons/bullet.svg" class="rating-icon" />
+                <div class="rating-text">
+                    <span class="rating-label">Bullet</span>
+                    <span class="rating-value" id="rating-bullet">—</span>
+                    <span class="rating-record" id="record-bullet">—</span>
+                </div>
+            </div>
+            <div class="rating-item">
+                <img src="https://www.chess.com/bundles/web/images/color-icons/blitz.svg" class="rating-icon" />
+                <div class="rating-text">
+                    <span class="rating-label">Blitz</span>
+                    <span class="rating-value" id="rating-blitz">—</span>
+                    <span class="rating-record" id="record-blitz">—</span>
+                </div>
+            </div>
+            <div class="rating-item">
+                <img src="https://www.chess.com/bundles/web/images/color-icons/rapid.svg" class="rating-icon" />
+                <div class="rating-text">
+                    <span class="rating-label">Rapid</span>
+                    <span class="rating-value" id="rating-rapid">—</span>
+                    <span class="rating-record" id="record-rapid">—</span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script type="module" src="app.js"></script>

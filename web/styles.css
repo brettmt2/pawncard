@@ -1,0 +1,221 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+}
+
+body {
+    background-color: #4b4847;
+    padding: 24px;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    min-height: 100vh;
+}
+
+h1.site-title {
+    color: #ffffff;
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    margin-top: 48px;
+    margin-bottom: 8px;
+}
+
+p.site-subtitle {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    margin-bottom: 40px;
+}
+
+.search-container {
+    display: flex;
+    gap: 8px;
+    margin-top: 32px;
+}
+
+#username-input {
+    padding: 12px 20px;
+    border-radius: 999px;
+    border: none;
+    background-color: #ffffff;
+    color: #3a3837;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    outline: none;
+    width: 260px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+#username-input::placeholder {
+    color: #aaa;
+    font-weight: 600;
+}
+
+#search-btn {
+    padding: 12px 24px;
+    border-radius: 999px;
+    border: none;
+    background-color: #81b64c;
+    color: #ffffff;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+#search-btn:hover {
+    background-color: #6fa33a;
+}
+
+#search-btn:active {
+    transform: scale(0.96);
+}
+
+.pawncard {
+    margin-top: 40px;
+    background-color: #3a3837;
+    border-radius: 24px;
+    padding: 32px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    min-width: 600px;
+}
+
+#pfp {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+#username-display {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+}
+
+.pawncard {
+    margin-top: 40px;
+    background-color: #3a3837;
+    border-radius: 24px;
+    padding: 32px 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    min-width: 600px;
+    flex-wrap: wrap;
+}
+
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.stats-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+    border-left: 2px solid rgba(255, 255, 255, 0.1);
+    padding-left: 40px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    align-items: center;
+}
+
+.stat-label {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.stat-value {
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+#stat-country {
+    width: 32px;
+    height: 24px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.ratings-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 48px;
+    width: 100%;
+    padding-top: 24px;
+    border-top: 2px solid rgba(255, 255, 255, 0.1);
+    margin-top: 8px;
+}
+
+.rating-record {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+}
+
+.rating-label {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.rating-value {
+    color: #ffffff;
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+.rating-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}
+
+.rating-icon {
+    width: 32px;
+    height: 32px;
+}
+
+.rating-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
