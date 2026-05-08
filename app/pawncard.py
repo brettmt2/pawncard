@@ -38,7 +38,7 @@ async def get_user_summary(client: httpx.AsyncClient, username: str):
     summary = {}
 
     if 'player_id' in data:
-        summary['pfp'] = data['avatar']
+        summary['pfp'] = data.get('avatar', 'https://www.chess.com/bundles/web/images/user-image.007dad08.svg')
         summary['username'] = username
         summary['followers'] = data['followers']
         summary['location'] = data['location'] if 'location' in data else None
