@@ -10,7 +10,7 @@ async def get_user_summary_stats(client: httpx.AsyncClient, username: str):
 
     data = response.json()
 
-    game_types = [data['chess_rapid'], data['chess_blitz'], data['chess_bullet']]
+    game_types = [data.get('chess_rapid', None), data.get('chess_blitz', None), data.get('chess_bullet', None)]
     stats = {}
 
     for key, game_type in zip(['rapid', 'blitz', 'bullet'], game_types):
@@ -60,6 +60,10 @@ async def append_feed(feed: list, client: httpx.AsyncClient, username: str):
     now = datetime.now()
     url = f'https://api.chess.com/pub/player/{username}/games/{now.year}/{now.month:02d}'
 
+    username = username.lower() if username else None
+    if username is None:
+        return
+
     headers = {'User-Agent': 'Mozilla/5.0'}
     result = await client.get(url, headers=headers)
 
@@ -84,9 +88,12 @@ async def append_feed(feed: list, client: httpx.AsyncClient, username: str):
         white = game['white']
         black = game['black']
 
-        if (white['result'] == 'win' and white['username'] == username) \
-            or (black['result'] == 'win' and black['username'] == username):
+        white_username = white['username'].lower()
+        black_username = black['username'].lower()
 
+        if (white['result'] == 'win' and white_username == username) \
+            or (black['result'] == 'win' and black_username == username):
+            
             feed_item['pgn'] = game['pgn']
 
             feed_item['time_class'] = game['time_class']
