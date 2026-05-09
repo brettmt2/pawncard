@@ -5,6 +5,7 @@ import os
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 import redis
 import httpx
 import boto3
@@ -69,3 +70,4 @@ async def get_user_data(username: str):
     
     return data
 
+app.mount("/", StaticFiles(directory="web", html=True), name="web")
