@@ -57,6 +57,11 @@ app.add_middleware(
 async def get_user_data(username: str):
     data = {}
 
+    if username:
+        username = username.lower()
+    else:
+        username = 'hikaru'
+
     cached = r.get(f'summary/{username}')
     if cached:
         data['summary'] = json.loads(cached)
