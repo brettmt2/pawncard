@@ -96,10 +96,12 @@ async function search() {
                         <span class="feed-result-label">${resultLabel}</span>
                         <span class="feed-result-condition">${item.win_condition}</span>
                     </div>
-                    <div class="feed-accuracy">
-                        <span class="feed-accuracy-item white">♔ ${item.accuracies.white}%</span>
-                        <span class="feed-accuracy-item black">♚ ${item.accuracies.black}%</span>
-                    </div>
+                    ${item.accuracies ? `
+                        <div class="feed-accuracy">
+                            <span class="feed-accuracy-item white">♔ ${item.accuracies.white}%</span>
+                            <span class="feed-accuracy-item black">♚ ${item.accuracies.black}%</span>
+                        </div>
+                    ` : ''}
                 `;
 
                 card.appendChild(boardDiv);
