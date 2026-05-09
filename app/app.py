@@ -66,7 +66,7 @@ async def get_user_data(username: str):
     data['summary'] = await get_user_summary(client=client, username=username)
     data['feed'] = await get_user_feed(s3=s3, client=client, username=username, append=True)
     
-    r.setex(f'summary/{username}', 30, json.dumps(data['summary']))
+    r.setex(f'summary/{username}', 3600, json.dumps(data['summary']))
     
     return data
 

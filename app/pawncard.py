@@ -136,20 +136,14 @@ async def get_user_feed(s3, client: httpx.AsyncClient, username: str, append: bo
     if append:
         updated_feed = await append_feed(feed=feed, client=client, username=username)
 
-        s3.put_object(
-            Bucket=os.getenv('FEEDS_BUCKET_NAME'),
-            Key=f'feeds/{username}',
-            Body=json.dumps(updated_feed)
-        )
+        # don't create an s3 object if there is no feed
+        if feed is not None and len(feed) > 0:
+            s3.put_object(
+                Bucket=os.getenv('FEEDS_BUCKET_NAME'),
+                Key=f'feeds/{username}',
+                Body=json.dumps(updated_feed)
+            )
 
         return updated_feed
 
     return feed
-
-if __name__ == "__main__":
-    async def main():
-        async with httpx.AsyncClient() as client:
-            res = await append_feed(None, client, "peach_02")
-            print(res)
-    
-    asyncio.run(main())
