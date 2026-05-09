@@ -62,11 +62,50 @@ async function search() {
 
             data['feed'].forEach((item, index) => {
                 const boardId = `board-${index}`;
-                const div = document.createElement('div');
-                div.id = boardId;
-                div.style.width = '300px';
-                div.style.height = '300px';
-                feedContainer.appendChild(div);
+
+                const card = document.createElement('div');
+                card.className = 'feed-card';
+
+                // left: chess board
+                const boardDiv = document.createElement('div');
+                boardDiv.id = boardId;
+                boardDiv.className = 'feed-board';
+
+                // right: game info
+                const infoDiv = document.createElement('div');
+                infoDiv.className = 'feed-info';
+
+                const timeClassIcon = `https://www.chess.com/bundles/web/images/color-icons/${item.time_class}.svg`;
+
+                const resultLabel = item.win_color.charAt(0).toUpperCase() + item.win_color.slice(1) + ' wins';
+
+                infoDiv.innerHTML = `
+                    <img src="${timeClassIcon}" class="feed-time-icon" />
+                    <div class="feed-matchup">
+                        <div class="feed-player-row">
+                            <span class="feed-player">${data['summary']['username']}</span>
+                            <span class="feed-rating">${data['summary']['stats'][item.time_class]?.curr_rating ?? '—'}</span>
+                        </div>
+                        <span class="feed-vs">vs</span>
+                        <div class="feed-player-row">
+                            <span class="feed-player">${item.opponent.username}</span>
+                            <span class="feed-rating">${item.opponent.rating}</span>
+                        </div>
+                    </div>
+                    <div class="feed-result">
+                        <span class="feed-result-label">${resultLabel}</span>
+                        <span class="feed-result-condition">${item.win_condition}</span>
+                    </div>
+                    <div class="feed-accuracy">
+                        <span class="feed-accuracy-item white">♔ ${item.accuracies.white}%</span>
+                        <span class="feed-accuracy-item black">♚ ${item.accuracies.black}%</span>
+                    </div>
+                `;
+
+                card.appendChild(boardDiv);
+                card.appendChild(infoDiv);
+                feedContainer.appendChild(card);
+
                 Chessboard(boardId, {
                     position: item.fen,
                     pieceTheme: './static/pieces/{piece}.png',

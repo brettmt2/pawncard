@@ -284,3 +284,127 @@ p.site-subtitle {
 .pawncard-banner strong {
     color: rgba(255, 255, 255, 0.65);
 }
+
+.feed-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+    width: 600px;
+}
+
+.feed-card {
+    background-color: #3a3837;
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    align-items: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.feed-board {
+    width: 220px;
+    height: 220px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.feed-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+    position: relative;
+}
+
+.feed-time-icon {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 32px;
+    height: 32px;
+}
+
+.feed-matchup {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+}
+
+.feed-player-row {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.feed-player {
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.feed-rating {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.feed-vs {
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding-left: 2px;
+    align-self: flex-start;
+}
+
+.feed-result {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.feed-result-label {
+    color: #81b64c;
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.feed-result-condition {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: capitalize;
+    letter-spacing: 0.04em;
+}
+
+.feed-accuracy {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    justify-content: center;
+}
+
+.feed-accuracy-item {
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 999px;
+}
+
+.feed-accuracy-item.white {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.feed-accuracy-item.black {
+    background: rgba(0, 0, 0, 0.3);
+    color: rgba(255, 255, 255, 0.7);
+}
