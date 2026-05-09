@@ -16,12 +16,18 @@ async def get_user_summary_stats(client: httpx.AsyncClient, username: str):
     for key, game_type in zip(['rapid', 'blitz', 'bullet'], game_types):
         stats[key] = {}
 
-        if not game_type:
+        if game_type is None:
             stats[key] = None
             continue # player hasn't played this format
 
         curr = game_type['last']['rating']
-        peak = game_type['best']['rating']
+        peak = game_type.get('best', None)
+
+        if peak:
+            peak = peak.get('rating')
+        else:
+            peak = curr
+
         record = f'{game_type['record']['win']} - {game_type['record']['loss']} - {game_type['record']['draw']}'
 
         stats[key]['curr_rating'] = curr
