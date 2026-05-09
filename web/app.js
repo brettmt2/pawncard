@@ -23,13 +23,13 @@ async function search() {
         
         const stats = data['summary']['stats'];
 
-        document.getElementById('rating-rapid').textContent = stats['rapid']['curr_rating'] ?? '—';
-        document.getElementById('rating-blitz').textContent = stats['blitz']['curr_rating'] ?? '—';
-        document.getElementById('rating-bullet').textContent = stats['bullet']['curr_rating'] ?? '—';
+        document.getElementById('rating-rapid').textContent = stats['rapid']?.['curr_rating'] ?? '—';
+        document.getElementById('rating-blitz').textContent = stats['blitz']?.['curr_rating'] ?? '—';
+        document.getElementById('rating-bullet').textContent = stats['bullet']?.['curr_rating'] ?? '—';
 
-        document.getElementById('record-bullet').textContent = stats['bullet']['record'] ?? '—';
-        document.getElementById('record-blitz').textContent = stats['blitz']['record'] ?? '—';
-        document.getElementById('record-rapid').textContent = stats['rapid']['record'] ?? '—';
+        document.getElementById('record-bullet').textContent = stats['bullet']?.['record'] ?? '—';
+        document.getElementById('record-blitz').textContent = stats['blitz']?.['record'] ?? '—';
+        document.getElementById('record-rapid').textContent = stats['rapid']?.['record'] ?? '—';
 
         document.getElementById('download-btn').addEventListener('click', async () => {
             const btn = document.getElementById('download-btn');

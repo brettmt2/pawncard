@@ -17,6 +17,7 @@ async def get_user_summary_stats(client: httpx.AsyncClient, username: str):
         stats[key] = {}
 
         if not game_type:
+            stats[key] = None
             continue # player hasn't played this format
 
         curr = game_type['last']['rating']
