@@ -53,6 +53,28 @@ async function search() {
         });
 
         pawncard.hidden = false;
+
+        const feedContainer = document.getElementById('feed');
+
+        if (data['feed'] && data['feed'].length > 0) {
+            feedContainer.hidden = false;
+            feedContainer.innerHTML = '';
+
+            data['feed'].forEach((item, index) => {
+                const boardId = `board-${index}`;
+                const div = document.createElement('div');
+                div.id = boardId;
+                div.style.width = '300px';
+                div.style.height = '300px';
+                feedContainer.appendChild(div);
+                Chessboard(boardId, {
+                    position: item.fen,
+                    pieceTheme: './static/pieces/{piece}.png',
+                    showNotation: false
+                });
+            });
+        }
+
     } catch (err) {
         console.error(err.message);
     }
