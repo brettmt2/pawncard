@@ -94,7 +94,7 @@ async def append_feed(feed: list, client: httpx.AsyncClient, username: str):
         if (white['result'] == 'win' and white_username == username) \
             or (black['result'] == 'win' and black_username == username):
             
-            feed_item['pgn'] = game['pgn']
+            feed_item['fen'] = game.get('fen', None)
 
             feed_item['time_class'] = game['time_class']
 
