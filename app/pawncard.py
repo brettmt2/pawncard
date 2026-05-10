@@ -21,6 +21,8 @@ async def get_user_summary_stats(client: httpx.AsyncClient, username: str):
             continue # player hasn't played this format
 
         curr = game_type['last']['rating']
+
+        # make peak = curr if no peak (usually from unregistered ratings and new accounts)
         peak = game_type.get('best', None)
 
         if peak:
@@ -44,6 +46,7 @@ async def get_user_summary(client: httpx.AsyncClient, username: str):
     
     summary = {}
 
+    # no player id if inexistent username entered
     if 'player_id' in data:
         summary['pfp'] = data.get('avatar', 'https://www.chess.com/bundles/web/images/user-image.007dad08.svg')
         summary['username'] = username

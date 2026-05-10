@@ -21,7 +21,7 @@
         <button id="search-btn">Search</button>
     </div>
 
-    <div id="pawncard" class="pawncard" hidden>
+    <div id="pawncard" class="pawncard">
         <button id="download-btn" title="Download as PNG">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -30,27 +30,30 @@
             </svg>
         </button>
 
-        <div class="pawncard-top">
+        <img id="chess-logo" src="static/chesscom-logo.png" />
+
+        <div class="pawncard-summary">
             <div class="profile-section">
-                <img id="pfp" src="https://www.chess.com/bundles/web/images/user-image.007dad08.svg" alt="Profile picture" />
-                <h2 id="username-display"></h2>
+                <img id="pfp" src="https://www.chess.com/bundles/web/images/user-image.007dad08.svg" alt="Profile Picture" />
+                <h2 id="username-subtitle"></h2>
+                <p id="location-subtitle"></p>
             </div>
 
-            <div class="stats-section">
-                <div class="stat-item">
+            <div class="info-section">
+                <div class="stat-row">
                     <span class="stat-label">Followers</span>
-                    <span class="stat-value" id="stat-followers"></span>
+                    <span id="followers-count" class="stat-value">-</span>
                 </div>
-                <div class="stat-item">
+                <div class="stat-row">
                     <span class="stat-label">Country</span>
-                    <img id="stat-country" src="" alt="" />
+                    <img id="country" src="" alt="Country flag" />
                 </div>
             </div>
         </div>
 
         <div class="ratings-section">
             <div class="rating-item">
-                <img src="https://www.chess.com/bundles/web/images/color-icons/bullet.svg" class="rating-icon" />
+                <img src="https://www.chess.com/bundles/web/images/color-icons/bullet.svg" class="rating-icon" alt="Bullet" />
                 <div class="rating-text">
                     <span class="rating-label">Bullet</span>
                     <span class="rating-value" id="rating-bullet">—</span>
@@ -58,7 +61,7 @@
                 </div>
             </div>
             <div class="rating-item">
-                <img src="https://www.chess.com/bundles/web/images/color-icons/blitz.svg" class="rating-icon" />
+                <img src="https://www.chess.com/bundles/web/images/color-icons/blitz.svg" class="rating-icon" alt="Blitz" />
                 <div class="rating-text">
                     <span class="rating-label">Blitz</span>
                     <span class="rating-value" id="rating-blitz">—</span>
@@ -66,7 +69,7 @@
                 </div>
             </div>
             <div class="rating-item">
-                <img src="https://www.chess.com/bundles/web/images/color-icons/rapid.svg" class="rating-icon" />
+                <img src="https://www.chess.com/bundles/web/images/color-icons/rapid.svg" class="rating-icon" alt="Rapid" />
                 <div class="rating-text">
                     <span class="rating-label">Rapid</span>
                     <span class="rating-value" id="rating-rapid">—</span>
@@ -75,35 +78,27 @@
             </div>
         </div>
 
-        <div class="pawncard-banner">
+        <div id="pawncard-banner">
             <img src="static/logo.png" class="banner-logo" />
             <span>Pawncard - Generate yours at <strong>pawncard.up.railway.app</strong></span>
         </div>
+
     </div>
 
     <div id="feed" class="feed-container" hidden></div>
-
-    <a href="https://github.com/brettmt2/pawncard" target="_blank" rel="noopener noreferrer"
-    style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
-        <img 
-            src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-            alt="GitHub Repo"
-            style="width: 50px; height: 50px; opacity: 0.8; transition: opacity 0.2s ease;"
-            onmouseover="this.style.opacity=1"
-            onmouseout="this.style.opacity=0.5"
-        />
-    </a>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
         integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous">
+    </script>
 
     <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"
             integrity="sha384-8Vi8VHwn3vjQ9eUHUxex3JSN/NFqUg3QbPyX8kWyb93+8AC/pPWTzj+nHtbC5bxD"
-            crossorigin="anonymous"></script>
-
+            crossorigin="anonymous">
+    </script>
+    
     <script type="module" src="app.js"></script>
 
 </body>
