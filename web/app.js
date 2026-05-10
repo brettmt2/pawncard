@@ -1,4 +1,4 @@
-import { getUserData } from './api.js';
+import { getUserData } from './api.js?v=2';
 
 function generateUserProfileSection(data) {
     if (data === null) return;
