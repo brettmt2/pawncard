@@ -4,129 +4,135 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Nunito', sans-serif;
 }
 
 body {
     background-color: #4b4847;
-    padding: 24px;
-    font-weight: 600;
+    font-family: 'Nunito', sans-serif;
+    min-height: 100vh;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    text-align: center;
-    min-height: 100vh;
 }
 
 .title-section {
     display: flex;
-    flex-direction: row;
     align-items: center;
+    justify-content: center;
     gap: 12px;
-    margin-top: 48px;
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
+    max-width: 580px;
+    width: 100%;
 }
 
 .site-logo {
-    width: 35px;
-    height: auto;
-    object-fit: contain;
+    width: 60px;
+    height: 80px;
+    border-radius: 8px;
 }
 
-h1.site-title {
-    color: #ffffff;
-    font-size: 3rem;
+.site-title {
+    color: white;
+    font-size: 64px;
     font-weight: 800;
-    letter-spacing: 0.04em;
-    margin-top: 0;
-    margin-bottom: 0;
 }
 
-p.site-subtitle {
-    color: rgba(255, 255, 255, 0.55);
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 0.03em;
-    margin-bottom: 40px;
+.site-subtitle {
+    color: rgb(255, 255, 255);
+    font-size: 15px;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+    max-width: 580px;
+    width: 100%;
+    text-align: center;
 }
 
 .search-container {
     display: flex;
-    gap: 8px;
-    margin-top: 32px;
+    max-width: 580px;
+    width: 100%;
+    margin-bottom: 1.5rem;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 30px;
+    padding: 4px;
+    gap: 0;
 }
 
 #username-input {
-    padding: 12px 20px;
-    border-radius: 999px;
+    flex: 1;
+    padding: 10px 16px;
+    border-radius: 30px;
     border: none;
-    background-color: #ffffff;
-    color: #3a3837;
+    background: transparent;
+    color: white;
     font-family: 'Nunito', sans-serif;
-    font-weight: 700;
-    font-size: 1rem;
+    font-size: 15px;
     outline: none;
-    width: 260px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-}
-
-#username-input::placeholder {
-    color: #aaa;
-    font-weight: 600;
 }
 
 #search-btn {
-    padding: 12px 24px;
-    border-radius: 999px;
+    padding: 10px 24px;
+    border-radius: 26px;
     border: none;
-    background-color: #81b64c;
-    color: #ffffff;
+    background: #fcd1d7;
+    color: #4b4847;
     font-family: 'Nunito', sans-serif;
-    font-weight: 800;
-    font-size: 1rem;
+    font-weight: 700;
+    font-size: 15px;
     cursor: pointer;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.2s, transform 0.1s;
+    transition: opacity 0.2s;
+    white-space: nowrap;
 }
 
 #search-btn:hover {
-    background-color: #6fa33a;
-}
-
-#search-btn:active {
-    transform: scale(0.96);
+    opacity: 0.85;
 }
 
 .pawncard {
-    margin-top: 40px;
-    background-color: #3a3837;
-    border-radius: 24px;
-    padding: 32px 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    width: 600px;
+    background: #3a3837;
+    border-radius: 18px;
+    padding: 3rem 2rem;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
     position: relative;
 }
 
-.pawncard-top {
+#download-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 8px;
+    padding: 8px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.6);
     display: flex;
-    flex-direction: row;
     align-items: center;
-    gap: 40px;
-    padding-bottom: 24px;
-    width: 100%;
+    justify-content: center;
+    transition: background 0.2s, color 0.2s;
+}
+
+#download-btn:hover {
+    background: rgba(252, 209, 215, 0.2);
+    color: #fcd1d7;
+}
+
+.pawncard-summary {
+    display: flex;
+    align-items: center;
 }
 
 .profile-section {
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    width: 200px;
-    flex-shrink: 0;
+    justify-content: center;
+    padding-right: 2rem;
+    border-right: 1px solid rgba(252, 209, 215, 0.4);
 }
 
 #pfp {
@@ -134,53 +140,94 @@ p.site-subtitle {
     height: 160px;
     border-radius: 50%;
     object-fit: cover;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    margin-bottom: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
-#username-display {
-    color: #ffffff;
-    font-size: 1.5rem;
+#username-subtitle {
+    color: white;
+    font-size: 22px;
     font-weight: 800;
-    letter-spacing: 0.03em;
+    text-align: center;
+    margin-bottom: 4px;
 }
 
-.stats-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 16px;
+#location-subtitle {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.info-section {
     flex: 1;
-    border-left: 2px solid rgba(255, 255, 255, 0.1);
-    padding-left: 40px;
-    align-self: stretch;
-}
-
-.stat-item {
     display: flex;
     flex-direction: column;
-    gap: 2px;
-    align-items: center;
+    gap: 1.2rem;
+    padding-left: 2rem;
 }
 
 .stat-label {
-    color: rgba(255, 255, 255, 0.45);
-    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 13px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.05em;
+    display: block;
+    margin-bottom: 4px;
 }
 
 .stat-value {
-    color: #ffffff;
-    font-size: 1.1rem;
-    font-weight: 700;
+    color: white;
+    font-size: 20px;
+    font-weight: 800;
 }
 
-#stat-country {
-    width: 32px;
-    height: 24px;
+#country {
+    width: 42px;
+    height: 28px;
     border-radius: 4px;
     object-fit: cover;
+    border: none;
+    margin-top: 4px;
+    display: none;
+}
+
+@media (max-width: 500px) {
+    body {
+        padding: 1rem;
+    }
+
+    .pawncard-summary {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .profile-section {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        padding-right: 0;
+        padding-bottom: 1.5rem;
+        width: 100%;
+    }
+
+    .info-section {
+        padding-left: 0;
+        align-items: center;
+        width: 100%;
+    }
+
+    .feed-card {
+        flex-direction: column;
+    }
+
+    .feed-left {
+        width: 100%;
+    }
+
+    .feed-left > div {
+        width: 100% !important;
+    }
 }
 
 .ratings-section {
@@ -191,6 +238,7 @@ p.site-subtitle {
     width: 100%;
     padding-top: 24px;
     border-top: 2px solid rgba(255, 255, 255, 0.1);
+    margin-top: 1.5rem;
 }
 
 .rating-item {
@@ -203,12 +251,14 @@ p.site-subtitle {
 .rating-icon {
     width: 32px;
     height: 32px;
+    flex-shrink: 0;
 }
 
 .rating-text {
     display: flex;
     flex-direction: column;
     gap: 2px;
+    align-items: center;
 }
 
 .rating-label {
@@ -230,181 +280,204 @@ p.site-subtitle {
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.03em;
+    text-align: center;
+    white-space: nowrap;
 }
 
-#download-btn {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    cursor: pointer;
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.6);
-    transition: background 0.2s, color 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#download-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    color: #ffffff;
-}
-
-.pawncard-banner {
+#pawncard-banner {
     display: none;
-    width: calc(100% + 80px);
-    margin-left: -40px;
-    margin-right: -40px;
-    margin-bottom: -32px;
-    margin-top: 24px;
-    background-color: #2e2d2c;
-    border-radius: 0 0 0 0;
-    padding: 12px 40px;
+    background: #2a2928;
+    margin: 1.5rem -2rem -3rem -2rem;
+    padding: 10px 2rem;
     align-items: center;
-    gap: 8px;
-    color: rgba(255, 255, 255, 0.4);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
     justify-content: center;
+    gap: 8px;
+}
+
+#pawncard-banner span {
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+}
+
+#pawncard-banner strong {
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .banner-logo {
-    width: 16px;
+    width: 14px;
     height: auto;
     object-fit: contain;
-    opacity: 0.5;
+    opacity: 0.4;
 }
 
-.pawncard-banner strong {
-    color: rgba(255, 255, 255, 0.65);
-}
-
-.feed-container {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-top: 24px;
-    width: 600px;
+#chess-logo {
+    display: none;
+    position: absolute;
+    top: 12px;
+    right: 30px;
+    width: 100px;
+    height: auto;
+    object-fit: contain;
+    opacity: 0.7;
 }
 
 .feed-card {
-    background-color: #3a3837;
-    border-radius: 20px;
-    padding: 20px;
+    background: #3a3837;
+    border-radius: 18px;
+    padding: 1.5rem 2rem;
+    max-width: 580px;
+    width: 100%;
     display: flex;
-    flex-direction: row;
-    gap: 24px;
-    align-items: center;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    gap: 4rem;
+    margin-top: 1rem;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
     position: relative;
 }
 
-.feed-board {
-    width: 220px;
-    height: 220px;
-    flex-shrink: 0;
-    border-radius: 6px;
-    overflow: hidden;
+.feed-left {
+    flex: 0 0 auto;
 }
 
-.feed-info {
+.feed-right {
+    flex: 1;
+}
+
+.feed-summary {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    flex: 1;
-    position: relative;
-}
-
-.feed-time-icon {
-    position: absolute;
-    top: -4px;
-    right: -4px;
-    width: 32px;
-    height: 32px;
+    gap: 1rem;
+    justify-content: center;
+    height: 100%;
 }
 
 .feed-matchup {
     display: flex;
     flex-direction: column;
     gap: 4px;
-    align-items: flex-start;
-}
-
-.feed-player-row {
-    display: flex;
-    flex-direction: row;
-    align-items: baseline;
-    gap: 8px;
 }
 
 .feed-player {
-    color: #ffffff;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 800;
+    color: white;
 }
 
-.feed-rating {
-    color: rgba(255, 255, 255, 0.45);
-    font-size: 0.85rem;
-    font-weight: 700;
+.feed-player.you {
+    color: #fcd1d7;
+}
+
+.feed-player.opp {
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .feed-vs {
-    color: rgba(255, 255, 255, 0.35);
     font-size: 0.75rem;
     font-weight: 700;
+    color: rgba(255, 255, 255, 0.35);
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    padding-left: 2px;
-    align-self: flex-start;
 }
 
-.feed-result {
+.feed-colors {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 4px;
 }
 
-.feed-result-label {
-    color: #81b64c;
-    font-size: 1rem;
-    font-weight: 800;
+.feed-color-row {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.85rem;
+    font-weight: 600;
 }
 
-.feed-result-condition {
-    color: rgba(255, 255, 255, 0.4);
-    font-size: 0.75rem;
+.feed-condition {
+    display: block;
+    color: #4caf7d;
+    font-size: 0.85rem;
     font-weight: 700;
-    text-transform: capitalize;
-    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.feed-accuracies {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.feed-accuracy {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.feed-win {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.feed-accuracies {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
 .feed-accuracy {
     display: flex;
-    flex-direction: row;
-    gap: 12px;
-    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.85rem;
+    font-weight: 600;
 }
 
-.feed-accuracy-item {
-    font-size: 0.8rem;
-    font-weight: 700;
-    padding: 3px 10px;
-    border-radius: 999px;
+.acc-bubble {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
 }
 
-.feed-accuracy-item.white {
-    background: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
+.white-bubble {
+    background: #ffffff;
 }
 
-.feed-accuracy-item.black {
-    background: rgba(0, 0, 0, 0.3);
-    color: rgba(255, 255, 255, 0.7);
+.black-bubble {
+    background: #555352;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.feed-time-icon {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.feed-header {
+    max-width: 580px;
+    width: 100%;
+    margin: 2rem 0 1rem;
+}
+
+.feed-title {
+    color: white;
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+#feed {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.1rem;
+    font-weight: 600;
+    max-width: 580px;
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem;
 }
