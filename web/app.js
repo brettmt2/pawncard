@@ -153,7 +153,7 @@ async function generate(username){
         return;
     }
 
-    generateUserFeed(res['feed'], username);
+    generateUserFeed(res['feed'].reverse(), username);
 }
 
 let usernameInput = document.getElementById('username-input');
