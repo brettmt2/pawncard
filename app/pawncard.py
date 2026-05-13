@@ -54,7 +54,10 @@ async def get_user_summary(client: httpx.AsyncClient, username: str):
         summary['location'] = data['location'] if 'location' in data else None
 
         flag_id = data['country'].split('/')[-1].lower()
-        summary ['flag'] = f'https://flagcdn.com/64x48/{flag_id}.png'
+        if flag_id != 'xx':
+            summary['flag'] = f'https://flagcdn.com/64x48/{flag_id}.png'
+        else:
+            summary['flag'] = 'https://flagcdn.com/64x48/un.png'
 
         summary['stats'] = await get_user_summary_stats(client=client, username=username)
 
