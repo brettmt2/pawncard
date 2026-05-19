@@ -110,6 +110,10 @@ function generateUserFeed(data, username) {
         card.className = 'feed-card';
         card.id = item['feed_id'];
 
+        if (item['pgn']) {
+            card.dataset.pgn = item['pgn'];
+        }
+
         const timeIcon = document.createElement('img');
         timeIcon.src = `https://www.chess.com/bundles/web/images/color-icons/${item['time_class']}.svg`;
         timeIcon.className = 'feed-time-icon';
