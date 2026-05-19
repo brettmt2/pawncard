@@ -1,4 +1,4 @@
-import { getUserData } from './api.js';
+import { getUserData } from './api.js?v=2';
 
 function generateUserProfileSection(data) {
     if (data === null) return;
@@ -10,8 +10,8 @@ function generateUserProfileSection(data) {
     document.getElementById('followers-count').textContent = data['followers'] || '';
 
     const country = document.getElementById('country');
-    country.src = data['flag'] || '';
-    country.style.display = data['flag'] ? 'block' : 'none';
+    country.src = data['flag'] || 'https://flagcdn.com/64x48/un.png';
+    country.style.display = 'block';
 }
 
 function generateUserStatsSection(data) {
@@ -153,7 +153,7 @@ async function generate(username){
         return;
     }
 
-    generateUserFeed(res['feed'], username);
+    generateUserFeed(res['feed'].reverse(), username);
 }
 
 let usernameInput = document.getElementById('username-input');
