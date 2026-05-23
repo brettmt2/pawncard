@@ -26,10 +26,10 @@ async def lifespan(_: FastAPI):
 
     # load Redis manager
     global r
-    # r = redis.Redis(host='localhost', port=6379, db=0) # local dev
-    host = os.getenv('REDIS_HOST')
-    port = int(os.getenv('REDIS_PORT'))
-    password = os.getenv('REDIS_PASSWORD')
+    host = os.getenv('REDIS_HOST', 'localhost')
+    port = int(os.getenv('REDIS_PORT', 6379))
+    password = os.getenv('REDIS_PASSWORD', None)
+    
     r = redis.Redis(host=host, port=port, password=password, decode_responses=True)
 
     global s3
