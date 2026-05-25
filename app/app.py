@@ -84,7 +84,7 @@ async def get_user_data(username: str):
 @app.get("/analysis/{username}/{game_id}")
 async def analyze_game(username: str, game_id: str):
     engine = analysis_engine(sf=sf, s3=s3, username=username, game_id=game_id)
-    res = engine.version()
+    res = engine.get_pgn()
     return res
 
 app.mount("/", StaticFiles(directory="web", html=True), name="web")
