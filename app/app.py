@@ -9,14 +9,16 @@ from fastapi.staticfiles import StaticFiles
 import redis
 import httpx
 import boto3
+from stockfish import Stockfish
 
 from app.pawncard import get_user_summary, get_user_feed
-from app.analyze import analyze
+from app.analyze import analysis_engine
 
 load_dotenv(override=False)
 
 client: httpx.AsyncClient = None
 r: redis.Redis = None
+sf: Stockfish = None
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
@@ -39,6 +41,9 @@ async def lifespan(_: FastAPI):
         aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),
         region_name=os.getenv('AWS_REGION')
     )
+
+    global sf
+    sf = Stockfish()
 
     yield
 
@@ -78,7 +83,8 @@ async def get_user_data(username: str):
 
 @app.get("/analysis/{username}/{game_id}")
 async def analyze_game(username: str, game_id: str):
-    res = analyze(s3=s3, username=username, game_id=game_id)
+    engine = analysis_engine(sf=sf, s3=s3, username=username, game_id=game_id)
+    res = engine.version()
     return res
 
 app.mount("/", StaticFiles(directory="web", html=True), name="web")
