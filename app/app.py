@@ -11,6 +11,7 @@ import httpx
 import boto3
 
 from app.pawncard import get_user_summary, get_user_feed
+from app.analyze import analysis_engine
 
 load_dotenv(override=False)
 
@@ -25,10 +26,10 @@ async def lifespan(_: FastAPI):
 
     # load Redis manager
     global r
-    # r = redis.Redis(host='localhost', port=6379, db=0) # local dev
-    host = os.getenv('REDIS_HOST')
-    port = int(os.getenv('REDIS_PORT'))
-    password = os.getenv('REDIS_PASSWORD')
+    host = os.getenv('REDIS_HOST', 'localhost')
+    port = int(os.getenv('REDIS_PORT', 6379))
+    password = os.getenv('REDIS_PASSWORD', None)
+
     r = redis.Redis(host=host, port=port, password=password, decode_responses=True)
 
     global s3
@@ -74,5 +75,11 @@ async def get_user_data(username: str):
     r.setex(f'summary/{username}', 120, json.dumps(data['summary']))
     
     return data
+
+@app.get("/analysis/{username}/{game_id}")
+async def analyze_game(username: str, game_id: str):
+    engine = analysis_engine(s3=s3, username=username, game_id=game_id)
+    res = engine.analyze()
+    return res
 
 app.mount("/", StaticFiles(directory="web", html=True), name="web")
