@@ -1,11 +1,13 @@
 import json
 import os
-from stockfish import Stockfish
 import re
+import chess
+import chess.pgn
+import chess.engine
+import io
 
 class analysis_engine:
-    def __init__(self, sf: Stockfish, s3, username: str, game_id: str):
-        self.sf = sf
+    def __init__(self, s3, username: str, game_id: str):
         self.s3 = s3
         self.username = username
         self.game_id = game_id
@@ -46,7 +48,33 @@ class analysis_engine:
         return self.clean_pgn(pgn)
 
     def analyze_pgn(self, pgn):
-        return ['test', pgn[:10]]
+        game = chess.pgn.read_game(io.StringIO(pgn))
+        board = game.board()
+        evaluations = []
+
+        with chess.engine.SimpleEngine.popen_uci("stockfish") as engine:
+            for move in game.mainline_moves():
+                san = board.san(move)
+                move_number = board.fullmove_number
+                color = "white" if board.turn == chess.WHITE else "black"
+                board.push(move)
+                info = engine.analyse(board, chess.engine.Limit(depth=12))
+                
+                score_obj = info["score"].white()
+
+                if score_obj.is_mate():
+                    score = f"M{score_obj.mate()}"
+                else:
+                    score = round(score_obj.score() / 100, 2)
+
+                evaluations.append({
+                    "move_number": move_number,
+                    "color": color,
+                    "move": san,
+                    "score": score
+                })
+
+        return evaluations
 
     def analyze(self):
         pgn = self.get_pgn()
@@ -57,6 +85,3 @@ class analysis_engine:
             response = None
 
         return response
-    
-    def version(self):
-        return self.sf.get_stockfish_major_minor_version()
