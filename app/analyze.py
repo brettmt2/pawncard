@@ -51,8 +51,9 @@ class analysis_engine:
         game = chess.pgn.read_game(io.StringIO(pgn))
         board = game.board()
         evaluations = []
+        stockfish_path = os.getenv("STOCKFISH_PATH", "/usr/games/stockfish")
 
-        with chess.engine.SimpleEngine.popen_uci("stockfish") as engine:
+        with chess.engine.SimpleEngine.popen_uci(stockfish_path) as engine:
             for move in game.mainline_moves():
                 san = board.san(move)
                 move_number = board.fullmove_number
@@ -75,12 +76,16 @@ class analysis_engine:
                 })
 
         return evaluations
+    
+    def eval_result(evaluations: list):
+        pass
 
     def analyze(self):
         pgn = self.get_pgn()
 
         if pgn:
-            response = self.analyze_pgn(pgn)
+            evals = self.analyze_pgn(pgn)
+            response = self.eval_result(evals)
         else: # the game id from chesscom needs to be already analyzed on their server for a pgn to be in the body
             response = None
 
