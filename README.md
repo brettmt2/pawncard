@@ -6,7 +6,7 @@ Just enter your chess.com username into the app, and get a profile card with you
 Try it out here: https://pawncard.up.railway.app
 
 ### Current Stats
-**1635 requests** across **462 unique accounts**
+**613 unique accounts**
 
 ![preview 1](prev1.png)
 ![preview 2](prev2.png)
